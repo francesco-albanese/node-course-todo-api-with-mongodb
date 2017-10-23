@@ -21,7 +21,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
     db.collection('Users').find({name: "Vanessa"}).toArray().then(docs => {
         console.log(JSON.stringify(docs, null, 2));
-    }).catch(err => `Unable to fetch users ${err}`);
+    }).catch((err) => `Unable to fetch users ${err}`);
 
     // db.close();
 });
