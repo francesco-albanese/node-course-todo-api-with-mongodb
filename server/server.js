@@ -2,17 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 
-let { mongoose } = require('./db/mongoose');
-let { Todo } = require('./models/todo');
-let { User } = require('./models/user');
+const { mongoose } = require('./db/mongoose');
+const { Todo } = require('./models/todo');
+const { User } = require('./models/user');
 
-let app = express();
+const app = express();
 
 //with this we can now send JSON to the server
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
-    let todo = new Todo({
+    const todo = new Todo({
         text: req.body.text
     });
 
@@ -28,3 +28,5 @@ app.post('/todos', (req, res) => {
 app.listen('3000', () => {
     console.log(`Started on port ${3000}`)
 });
+
+module.exports = { app };
