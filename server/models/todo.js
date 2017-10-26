@@ -1,4 +1,4 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //define the model as a schema, so we tell Mongoose how it should be storing data
 const Todo = mongoose.model('Todo', {
