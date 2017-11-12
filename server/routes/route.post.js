@@ -7,11 +7,6 @@ module.exports = app => {
     
         todo.save().then(doc => {
             res.send(doc);
-        }).catch(err => {
-            if (!req.body || !req.body.text.length) {
-                return res.status(400).send(err)
-            }
-            res.status(500).send(err)
-        });
+        }).catch(err =>  res.status(400).send(err));
     });
 }
