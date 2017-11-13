@@ -2,6 +2,7 @@ require('./config/config') //set environment variables
 const express = require('express')
 const bodyParser = require('body-parser')
 const _ = require('lodash')
+const cors = require('cors')
 
 const { mongoose } = require('./db/mongoose')
 const { Todo } = require('./models/todo')
@@ -15,6 +16,8 @@ const routes = require('./routes/routes')()
 
 //with this we can now send JSON to the server
 app.use(bodyParser.json())
+
+app.use(cors())
 
 //start routes
 _.forEach(routes, route => route(app))
