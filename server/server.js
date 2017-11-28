@@ -19,11 +19,9 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-//start routes
+//initialise routes
 _.forEach(routes, route => route(app))
 
-app.listen(port, () => {
-    console.log(`Started on port ${port}`)
-});
+app.listen(port, () => console.log(`Started on port ${port}`))
 
-module.exports = { app };
+module.exports = { app }
