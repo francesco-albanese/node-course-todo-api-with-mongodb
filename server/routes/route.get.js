@@ -1,5 +1,7 @@
 const { Todo } = require('./../models/todo')
+const { User } = require('./../models/user')
 const { ObjectID } = require('mongodb')
+const { authenticate } = require('./../middleware/authenticate')
 
 module.exports = app => {
     app.get('/todos', (req, res) => {
@@ -22,5 +24,9 @@ module.exports = app => {
         }).catch(err => {
             res.status(400).send();
         });
+    })
+
+    app.get('/users/me', authenticate, (req, res) => {
+        res.send(req.user)
     })
 }
