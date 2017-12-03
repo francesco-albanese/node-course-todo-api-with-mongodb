@@ -8,13 +8,13 @@ const password = "123abc!"
 //     bcrypt.hash(password, salt).then(hash => console.log(hash)).catch(e => console.error('error', e))
 // })
 
-bcrypt.genSalt(10).then(salt => salt)
-.then(salt => bcrypt.hash(password, salt))
-.then(hash => console.log(hash))
+// bcrypt.genSalt(10).then(salt => salt)
+// .then(salt => bcrypt.hash(password, salt))
+// .then(hash => console.log(hash))
 
-// const hashedPassword = '$2a$10$XIU3Jo7v7Is5c25zBl2r8enW9fSzGuB.dPMfpKDaWPklV/a7qAT1W'
+const hashedPassword = '$2a$10$XIU3Jo7v7Is5c25zBl2r8enW9fSzGuB.dPMfpKDaWPklV/a7qAT1W'
 
-// bcrypt.compare(password, hashedPassword).then(compared => console.log(compared)).catch(e => console.log(e))
+bcrypt.compare(password, hashedPassword).then(compared => console.log('compared is ', compared)).catch(e => console.log(e))
 
 // const data = {
 //     id: 10
