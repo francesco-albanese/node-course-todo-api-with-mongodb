@@ -34,6 +34,12 @@ const UserSchema = new mongoose.Schema({
     }]
 })
 
+/******* 
+ * 
+ * statics are the methods defined on the Model. methods are defined on the document (instance)
+ * 
+ * *********/
+
 //override a method
 
 UserSchema.methods.toJSON = function() {
