@@ -1,5 +1,6 @@
 const { Todo } = require('./../models/todo')
 const { ObjectID } = require('mongodb')
+const { authenticate } = require('./../middleware/authenticate')
 
 module.exports = app => {
     app.delete('/todos/:id', (req, res) => {
@@ -16,5 +17,11 @@ module.exports = app => {
             }
             res.status(200).send({todo})
         }).catch(err => res.status(400).send())
+    })
+
+    app.delete('/users/me/token', authenticate, (req, res) => {
+        req.user.removeToken(req.token).then(() => {
+            res.status(200).send()
+        }).catch(e => res.status(400).send(e))
     })
 }
