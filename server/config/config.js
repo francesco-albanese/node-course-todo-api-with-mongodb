@@ -1,14 +1,9 @@
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "development"
+const config = require('./config.json')
+const envConfig = config[env]
 
-switch (env) {
-    case "development":
-        process.env.PORT = 3000
-        process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoApp'
-        break;
-    case "test":
-        process.env.PORT = 3000
-        process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoAppTest'
-        break;
-    default:
-        break;
+if (env === "development" || env === "test") {
+    Object.keys(envConfig).forEach(key => {
+        process.env[key] = config[env][key]
+    })
 }
