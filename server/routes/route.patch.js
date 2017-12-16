@@ -1,12 +1,14 @@
 const { Todo } = require('./../models/todo')
 const { ObjectID } = require('mongodb')
 const _ = require('lodash')
+const { authenticate } = require('./../middleware/authenticate')
 
 module.exports = app => {
-    app.patch('/todos/:id', (req, res) => {
-        const { id } = req.params;
-        const body = _.pick(req.body, ['text', 'completed']);
-        const isValid = ObjectID.isValid(id);
+    app.patch('/todos/:id', authenticate, (req, res) => {
+        const { id } = req.params
+        const body = _.pick(req.body, ['text', 'completed'])
+        const isValid = ObjectID.isValid(id)
+        const _creator = req.user._id
     
         if(!isValid) {
             return res.status(404).send()
@@ -19,7 +21,7 @@ module.exports = app => {
             body.completedAt = null
         }
     
-        Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then(todo => {
+        Todo.findOneAndUpdate({_id:id, _creator}, {$set: body}, {new: true}).then(todo => {
             if (!todo) {
                 return res.status(404).send()
             }

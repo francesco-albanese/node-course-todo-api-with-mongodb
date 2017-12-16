@@ -3,15 +3,19 @@ const { ObjectID } = require('mongodb')
 const { authenticate } = require('./../middleware/authenticate')
 
 module.exports = app => {
-    app.delete('/todos/:id', (req, res) => {
-        const { id } = req.params;
-        const isValid = ObjectID.isValid(id);
+    app.delete('/todos/:id', authenticate, (req, res) => {
+        const { id } = req.params
+        const isValid = ObjectID.isValid(id)
+        const _creator = req.user._id
     
         if(!isValid) {
             return res.status(404).send()
         }
     
-        Todo.findByIdAndRemove(id).then(todo => {
+        Todo.findOneAndRemove({
+            _id: id,
+            _creator
+        }).then(todo => {
             if (!todo) {
                 return res.status(404).send()
             }
