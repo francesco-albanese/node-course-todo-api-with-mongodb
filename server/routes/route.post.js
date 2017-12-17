@@ -15,13 +15,15 @@ function postRequests(app) {
         }).catch(err =>  res.status(400).send(err));
     });
 
-    app.post('/users', (req, res) => {
+    app.post('/users', (req, res, next) => {
         const body = _.pick(req.body, ['email', 'password'])
         const user = new User(body)
 
         user.save().then(() => user.generateAuthToken()).then(token => {
             res.header('x-auth', token).send(user)
-        }).catch(e => res.status(400).send(e))
+        })
+        // .catch(e => res.status(400).send(e))
+        .catch(e => next(e))
     })
 
     app.post('/users/login', (req, res) => {
